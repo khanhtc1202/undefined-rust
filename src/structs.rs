@@ -36,7 +36,7 @@ impl Person {
     }
 
     // TODO: borrow
-    fn to_tuple(self) -> (String, String) {
+    fn to_tuple(&self) -> (String, String) {
         (self.first_name, self.last_name)
     }
 }
