@@ -100,6 +100,24 @@ pub fn run() {
     println!("string in main = {}", m_s);
     sample_take_reference_instead_of_value(&m_s);
     println!("string in main = {}", m_s);
+
+    // borrow mutable ref
+    // both ref mut var and owner var can make change on the value
+    let mut bm_s = String::from("sample");
+    let rm_s = &mut bm_s;
+    rm_s.push_str(" here");
+    println!("string mutable ref = {}", rm_s);
+    // make change the string value by bm_s after this line will be change
+    // in the new string, which be changed by rm_s (when it hold the mutable ref to string)
+    bm_s.push_str(" change myself");
+    println!("string be changed itself = {}", bm_s);
+    // after this line, if we call rm_s, it will occurred error because we try to borrow
+    // &mut bm_s one more time. the &mut bm_s be borrowed once at line 107 and line 110
+    // the &mut bm_s ref ownership is took over (&mut self in method impl)
+    // after line 110, the mutable ref to value string belongs to bm_s itself
+    // if we try to do something like below statement, it will occurred error
+    // due to rm_s has no ownership to string value
+    // println!("value pointed by rm_s = {}", rm_s);
 }
 
 fn sample_take_ownership(string: String) {
