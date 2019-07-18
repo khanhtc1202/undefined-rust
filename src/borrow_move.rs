@@ -65,4 +65,17 @@ pub fn run() {
     println!("s = {}", s);
     s = "xxxxxxxxxxxxx";
     println!("s = {}", s);
+
+    // String type which use heap to allocate the string data
+    let mut s = String::from("hello");
+
+    let r1 = &s; // no problem
+    let r2 = &s; // no problem
+
+    println!("{} and {}", r1, r2);
+    // r1 and r2 are valid until we create new mutable ref
+
+    let r3 = &mut s; // no problem
+    // r1 and r2 are no more valid from here
+    println!("{}", r3);
 }
