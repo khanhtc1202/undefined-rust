@@ -78,4 +78,39 @@ pub fn run() {
     let r3 = &mut s; // no problem
     // r1 and r2 are no more valid from here
     println!("{}", r3);
+
+    // taking ownership be pass its into other function as its parameter
+    let o_s = String::from("sample");
+    println!("string in main = {}", o_s);
+    sample_take_ownership(o_s);
+    // value is move to parameter of above function, so o_s does not have ownership of that string
+    // value => below statement will occurred error
+    // println!("string in main = {}", o_s);
+
+    // taking ownership and return it after be used inside external function
+    let r_s = String::from("sample");
+    println!("string in main = {}", r_s);
+    let b_s = sample_take_ownership_and_return(r_s);
+    println!("string in main = {}", b_s);
+    // below statement is invalid because the value had been moved
+    // println!("string in main = {}", r_s);
+
+    // taking the ref to value and its ownership still belong to outside var
+    let m_s = String::from("sample");
+    println!("string in main = {}", m_s);
+    sample_take_reference_instead_of_value(&m_s);
+    println!("string in main = {}", m_s);
+}
+
+fn sample_take_ownership(string: String) {
+    println!("string inside the function = {}", string);
+}
+
+fn sample_take_ownership_and_return(string: String) -> String {
+    println!("string inside the function = {}", string);
+    string
+}
+
+fn sample_take_reference_instead_of_value(string_ref: &String) {
+    println!("string inside the function = {}", string_ref);
 }
