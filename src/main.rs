@@ -9,10 +9,10 @@
 //mod loops;
 //mod functions;
 //mod pointer_ref;
-//mod structs;
+mod structs;
 //mod enums;
 //mod cli;
-mod borrow_move;
+//mod borrow_move;
 
 fn main() {
 //    print::run();
@@ -26,8 +26,8 @@ fn main() {
 //    loops::run();
 //    functions::run();
 //    pointer_ref::run();
-//    structs::run();
+    structs::run();
 //    enums::run();
 //    cli::run();
-    borrow_move::run();
+//    borrow_move::run();
 }
