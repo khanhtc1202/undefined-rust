@@ -16,6 +16,19 @@ fn move_avatar(m: Movement) {
     }
 }
 
+enum Message {
+    Quit,
+    Move { x: i32, y: i32 },
+    Write(String),
+    ChangeColor(i32, i32, i32)
+}
+
+impl Message {
+    fn call(&self) {
+        println!("do something here");
+    }
+}
+
 pub fn run() {
     let avatar1 = Movement::Left;
     let avatar2 = Movement::Up;
@@ -26,4 +39,7 @@ pub fn run() {
     move_avatar(avatar2);
     move_avatar(avatar3);
     move_avatar(avatar4);
+
+    let m = Message::Write(String::from("hello"));
+    m.call();
 }
