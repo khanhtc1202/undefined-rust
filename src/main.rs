@@ -13,7 +13,8 @@
 //mod enums;
 //mod cli;
 //mod borrow_move;
-mod options;
+//mod options;
+mod module;
 
 fn main() {
 //    print::run();
@@ -31,5 +32,6 @@ fn main() {
 //    enums::run();
 //    cli::run();
 //    borrow_move::run();
-    options::run();
+//    options::run();
+    module::run();
 }
