@@ -4,7 +4,7 @@
 //mod strings;
 //mod tuples;
 //mod arrays;
-//mod vectors;
+mod vectors;
 //mod conditions;
 //mod loops;
 //mod functions;
@@ -14,7 +14,7 @@
 //mod cli;
 //mod borrow_move;
 //mod options;
-mod module;
+//mod module;
 
 fn main() {
 //    print::run();
@@ -23,7 +23,7 @@ fn main() {
 //    strings::run();
 //    tuples::run();
 //    arrays::run();
-//    vectors::run();
+    vectors::run();
 //    conditions::run();
 //    loops::run();
 //    functions::run();
@@ -33,5 +33,5 @@ fn main() {
 //    cli::run();
 //    borrow_move::run();
 //    options::run();
-    module::run();
+//    module::run();
 }
