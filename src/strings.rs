@@ -53,4 +53,8 @@ pub fn run() {
     // which be used here
     println!("str3 is {}", str3);
     // this line will caught err: println!("str1 is {}", str1);
+
+    // concat using format!
+    let s = format!("{}-{}-{}", "hello", "sample", "format");
+    println!("s is {}", s);
 }
