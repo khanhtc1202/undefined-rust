@@ -52,4 +52,21 @@ pub fn run() {
     for (k, v) in &map {
         println!("value at {} is {}", k, v);
     }
+
+    // insert elements to hash map ( 3 ways )
+    let mut scores = HashMap::new();
+    scores.insert(String::from("A"), 10);
+
+    // replace old value associated with key by the new one
+    scores.insert(String::from("A"), 15);
+    println!("current map is {:?}", scores); // expected value = 15
+
+    // using entry to insert on not exist, otherwise not
+    scores.entry(String::from("A")).or_insert(20);
+    println!("current map is {:?}", scores); // expected value = 15
+
+    // the mutate ref returned by or_insert fn can be used to update value pointed by it
+    let v = scores.entry(String::from("A")).or_insert(0);
+    *v = 20;
+    println!("current map is {:?}", scores); // expected value = 20
 }
