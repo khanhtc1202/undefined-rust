@@ -15,7 +15,8 @@
 //mod borrow_move;
 //mod options;
 //mod module;
-mod hashmap;
+//mod hashmap;
+mod error;
 
 fn main() {
 //    print::run();
@@ -35,5 +36,6 @@ fn main() {
 //    borrow_move::run();
 //    options::run();
 //    module::run();
-    hashmap::run();
+//    hashmap::run();
+    error::run();
 }
