@@ -1,7 +1,7 @@
 //mod print;
 //mod vars;
 //mod types;
-mod strings;
+//mod strings;
 //mod tuples;
 //mod arrays;
 //mod vectors;
@@ -15,12 +15,13 @@ mod strings;
 //mod borrow_move;
 //mod options;
 //mod module;
+mod hashmap;
 
 fn main() {
 //    print::run();
 //    vars::run();
 //    types:: run();
-    strings::run();
+//    strings::run();
 //    tuples::run();
 //    arrays::run();
 //    vectors::run();
@@ -34,4 +35,5 @@ fn main() {
 //    borrow_move::run();
 //    options::run();
 //    module::run();
+    hashmap::run();
 }
