@@ -18,6 +18,7 @@
 //mod hashmap;
 //mod error;
 mod generic;
+//mod traits;
 
 fn main() {
 //    print::run();
@@ -40,4 +41,5 @@ fn main() {
 //    hashmap::run();
 //    error::run();
     generic::run();
+//    traits::run();
 }

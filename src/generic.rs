@@ -5,8 +5,15 @@
 
 pub fn run() {
     let numbers = vec![10, 20, 5, 100, 25];
-    let largest = largest_i32(&numbers);
-    println!("largest number is {}", largest);
+
+    let l = largest_i32(&numbers);
+    println!("largest number is {}", l);
+
+    let l = largest(&numbers);
+    println!("largest number is {}", l);
+
+    let l = alter_largest(&numbers);
+    println!("largest number is {}", l);
 
     let p1 = Point { x: 5, y: 10.4 };
     let p2 = Point { x: "Hello", y: 'c'};
@@ -18,6 +25,7 @@ pub fn run() {
     // this line will get compile err: println!("p2.x = {}, p1.y = {}", p2.x, p1.y);
 }
 
+// on this version, type i32 is known and had implemented Copy trait by default
 fn largest_i32(list: &[i32]) -> i32 {
     let mut largest = list[0];
 
@@ -30,17 +38,30 @@ fn largest_i32(list: &[i32]) -> i32 {
     largest
 }
 
-//fn largest<T>(list: &[T]) -> T {
-//    let mut largest = list[0];
-//
-//    for &item in list.iter() {
-//        if item > largest {
-//            largest = item;
-//        }
-//    }
-//
-//    largest
-//}
+// need add Copy trait here to make Rust compile understand can make a copy of T with unknown size
+fn largest<T>(list: &[T]) -> T where T: PartialOrd + Copy {
+    let mut largest = list[0];
+
+    for &item in list.iter() {
+        if item > largest {
+            largest = item;
+        }
+    }
+
+    largest
+}
+
+fn alter_largest<T: PartialOrd>(list: &[T]) -> &T {
+    let mut largest = &list[0];
+
+    for item in list.iter() {
+        if item > largest {
+            largest = item;
+        }
+    }
+
+    largest
+}
 
 // generic struct
 struct Point<T, U> {
@@ -62,6 +83,7 @@ impl<T, U> Point<T, U> {
 // only Point<f32, f32> has below behaviors
 impl Point<f32, f32> {
     // should not move value here since it not borrow any data from existed one
+    #[allow(dead_code)]
     fn distance_from_root(&self) -> f32 {
         (self.x.powi(2) + self.y.powi(2)).sqrt()
     }
