@@ -16,7 +16,8 @@
 //mod options;
 //mod module;
 //mod hashmap;
-mod error;
+//mod error;
+mod generic;
 
 fn main() {
 //    print::run();
@@ -37,5 +38,6 @@ fn main() {
 //    options::run();
 //    module::run();
 //    hashmap::run();
-    error::run();
+//    error::run();
+    generic::run();
 }
