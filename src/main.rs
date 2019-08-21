@@ -17,8 +17,9 @@
 //mod module;
 //mod hashmap;
 //mod error;
-mod generic;
+//mod generic;
 //mod traits;
+mod lifetime;
 
 fn main() {
 //    print::run();
@@ -40,6 +41,7 @@ fn main() {
 //    module::run();
 //    hashmap::run();
 //    error::run();
-    generic::run();
+//    generic::run();
 //    traits::run();
+    lifetime::run();
 }
