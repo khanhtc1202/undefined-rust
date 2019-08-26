@@ -6,6 +6,11 @@
 /// specific run ignored tests by using
 /// > cargo test -- --ignored
 
+/// to verbose all text output from tests
+/// > cargo test -- --nocapture
+
+mod common;
+
 #[allow(dead_code)]
 struct Guess {
     value: i32
@@ -30,6 +35,7 @@ mod tests {
     #[test]
     #[should_panic(expected = "Guess value must be between 1 and 100")]
     fn greater_than_100() {
+        common::setup();
         Guess::new(200);
     }
 }
