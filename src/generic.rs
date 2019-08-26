@@ -1,7 +1,7 @@
-// NOTE: no performance over head when using generic in Rust
-// Rust accomplishes this by performing monomorphization of the code that is using generics at compile time.
-// Monomorphization is the process of turning generic code into specific code by filling in the concrete types
-// that are used when compiled.
+/// NOTE: no performance over head when using generic in Rust
+/// Rust accomplishes this by performing monomorphization of the code that is using generics at compile time.
+/// Monomorphization is the process of turning generic code into specific code by filling in the concrete types
+/// that are used when compiled.
 
 pub fn run() {
     let numbers = vec![10, 20, 5, 100, 25];

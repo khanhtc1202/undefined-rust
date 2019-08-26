@@ -1,4 +1,4 @@
-// NOTE: length of arrays can not be grow
+/// NOTE: length of arrays can not be grow
 
 pub fn run() {
     // array ele numbers must fit with its size

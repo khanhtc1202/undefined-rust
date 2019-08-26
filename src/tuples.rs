@@ -1,4 +1,4 @@
-// NOTE: tuples max length 12
+/// NOTE: tuples max length 12
 
 pub fn run() {
     let person: (&str, &str, i8) = ("khanhtc", "jp", 24);

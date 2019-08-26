@@ -1,4 +1,4 @@
-// Pointer ref: point to resources
+/// Pointer ref: point to resources
 
 pub fn run() {
     // primitive value

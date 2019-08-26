@@ -1,15 +1,15 @@
-// NOTE: type which not implemented COPY trait need call borrow explicit
-// if not, old variable (old owner of re-assigned value) will lost the ownership
-// with it data and can be use
+/// NOTE: type which not implemented COPY trait need call borrow explicit
+/// if not, old variable (old owner of re-assigned value) will lost the ownership
+/// with it data and can be use
 
-// NOTE 2: data type which known size will be push to stack by default
-// the one which unknown size (such as Vector, String,...) will be allocated in heap
-// if that data type do not implement COPY trait yet, make sure you borrow value across
-// re-assign operation
+/// NOTE 2: data type which known size will be push to stack by default
+/// the one which unknown size (such as Vector, String,...) will be allocated in heap
+/// if that data type do not implement COPY trait yet, make sure you borrow value across
+/// re-assign operation
 
-// NOTE 3: custom data type (by struct keyword) which contains known size type is
-// known size type and variable of this type will be pushed to stack :)))
-// note that if that type not implement COPY trait, still need borrow explicitly :))
+/// NOTE 3: custom data type (by struct keyword) which contains known size type is
+/// known size type and variable of this type will be pushed to stack :)))
+/// note that if that type not implement COPY trait, still need borrow explicitly :))
 
 struct MyType {
     x: i32,
