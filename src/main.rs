@@ -19,7 +19,8 @@
 //mod error;
 //mod generic;
 //mod traits;
-mod lifetime;
+//mod lifetime;
+mod closure;
 
 fn main() {
 //    print::run();
@@ -43,5 +44,6 @@ fn main() {
 //    error::run();
 //    generic::run();
 //    traits::run();
-    lifetime::run();
+//    lifetime::run();
+    closure::run();
 }
