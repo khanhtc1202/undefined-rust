@@ -20,7 +20,8 @@
 //mod generic;
 //mod traits;
 //mod lifetime;
-mod closure;
+//mod closure;
+mod iterator;
 
 fn main() {
 //    print::run();
@@ -45,5 +46,6 @@ fn main() {
 //    generic::run();
 //    traits::run();
 //    lifetime::run();
-    closure::run();
+//    closure::run();
+    iterator::run();
 }
