@@ -22,7 +22,7 @@
 //mod lifetime;
 //mod closure;
 //mod iterator;
-mod boxes;
+mod smart_pointer;
 
 fn main() {
 //    print::run();
@@ -49,5 +49,5 @@ fn main() {
 //    lifetime::run();
 //    closure::run();
 //    iterator::run();
-    boxes::run();
+    smart_pointer::run();
 }
