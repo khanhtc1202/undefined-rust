@@ -21,7 +21,8 @@
 //mod traits;
 //mod lifetime;
 //mod closure;
-mod iterator;
+//mod iterator;
+mod boxes;
 
 fn main() {
 //    print::run();
@@ -47,5 +48,6 @@ fn main() {
 //    traits::run();
 //    lifetime::run();
 //    closure::run();
-    iterator::run();
+//    iterator::run();
+    boxes::run();
 }
