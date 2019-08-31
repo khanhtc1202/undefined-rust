@@ -92,3 +92,26 @@ fn test_deref_coercion() {
 ///     - From `&T` to `&U` when `T: Deref<Target=U>`
 ///     - From `&mut T` to `&mut U` when `T: DerefMut<Target=U>`
 ///     - From `&mut T` to `&U` when `T: Deref<Target=U>`
+
+/// Drop trait
+struct CustomPointer {
+    data: String
+}
+
+impl Drop for CustomPointer {
+    fn drop(&mut self) {
+        println!("Dropping CustomPointer with data `{}`!", self.data);
+    }
+}
+
+#[test]
+fn test_drop() {
+    let c = CustomPointer{ data: String::from("one") };
+    println!("CustomPointer created");
+    /// Rust doesn’t let us call drop explicitly because Rust would still automatically
+    /// call drop on the value at the end of main. This would be a double free error because
+    /// Rust would be trying to clean up the same value twice.
+    /// aka. can not call `c.drop()` explicitly, call std::mem::drop instead
+    drop(c);
+    println!("CustomSmartPointer dropped before the end of main.");
+}
