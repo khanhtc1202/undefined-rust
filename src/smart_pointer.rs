@@ -115,3 +115,40 @@ fn test_drop() {
     drop(c);
     println!("CustomSmartPointer dropped before the end of main.");
 }
+
+/// Reference counter smart pointer
+/// NOTE: We use the Rc<T> type when we want to allocate some data on the heap for multiple parts
+/// of our program to read and we can’t determine at compile time which part will finish using
+/// the data last. If we knew which part would finish last, we could just make that part
+/// the data’s owner, and the normal ownership rules enforced at compile time would take effect.
+
+mod RcList {
+
+    use std::rc::Rc;
+
+    #[derive(Debug)]
+    enum List {
+        Cons(i32, Rc<List>),
+        Nil
+    }
+
+    use List::{Cons, Nil};
+
+    #[test]
+    fn test_rc() {
+        let a = Rc::new(Cons(5, Rc::new(Cons(10, Rc::new(Nil)))));
+        let b = Cons(3, Rc::clone(&a));
+        let c = Cons(4, Rc::clone(&a));
+        // call Rc::clone() to pass reference to list a and use it to create two new list
+        // note: The implementation of Rc::clone doesn’t make a deep copy of all the data like most
+        // types’ implementations of clone do. The call to Rc::clone only increments the reference count,
+        // which doesn’t take much time. => cheaper than call a.clone() which deep copy data on heap
+
+        println!("{:?}", a);
+        println!("{:?}", b);
+        println!("{:?}", c);
+    }
+}
+
+/// NOTE: Via `immutable references`, `Rc<T>` allows you to share data between multiple parts
+/// of your program for reading only.
