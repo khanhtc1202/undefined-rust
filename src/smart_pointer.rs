@@ -122,7 +122,10 @@ fn test_drop() {
 /// the data last. If we knew which part would finish last, we could just make that part
 /// the data’s owner, and the normal ownership rules enforced at compile time would take effect.
 
-mod RcList {
+/// NOTE: Via `immutable references`, `Rc<T>` allows you to share data between multiple parts
+/// of your program for reading only.
+
+mod rc_list {
 
     use std::rc::Rc;
 
@@ -149,6 +152,3 @@ mod RcList {
         println!("{:?}", c);
     }
 }
-
-/// NOTE: Via `immutable references`, `Rc<T>` allows you to share data between multiple parts
-/// of your program for reading only.
