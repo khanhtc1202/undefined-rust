@@ -271,3 +271,117 @@ mod multi_mutate_list {
         println!("c after = {:?}", c);
     }
 }
+
+/// Memory leak in case of create a cycle of Rc<T> so that counter for each elements
+/// in the cycle never reach 0 and cann't be free
+///
+/// NOTE: Calling `Rc::clone` increases the `strong_count` of an `Rc<T>` instance, and
+/// an `Rc<T>` instance is only cleaned up if its `strong_count is 0`.
+mod reference_cycle {
+    use std::rc::Rc;
+    use std::cell::RefCell;
+    use self::List::{Cons, Nil};
+
+    #[derive(Debug)]
+    enum List {
+        Cons(i32, RefCell<Rc<List>>),
+        Nil,
+    }
+
+    impl List {
+        fn tail(&self) -> Option<&RefCell<Rc<List>>> {
+            match self {
+                Cons(_, item) => Some(item),
+                Nil => None,
+            }
+        }
+    }
+
+    #[test]
+    fn test() {
+        let a = Rc::new(Cons(5, RefCell::new(Rc::new(Nil))));
+
+        println!("a initial rc count = {}", Rc::strong_count(&a));
+        println!("a next item = {:?}", a.tail());
+
+        let b = Rc::new(Cons(10, RefCell::new(Rc::clone(&a))));
+
+        println!("a rc count after b creation = {}", Rc::strong_count(&a));
+        println!("b initial rc count = {}", Rc::strong_count(&b));
+        println!("b next item = {:?}", b.tail());
+
+        // make the tail of `a` point to `b` => create the cycle
+        if let Some(link) = a.tail() {
+            *link.borrow_mut() = Rc::clone(&b);
+        }
+
+        println!("b rc count after changing a = {}", Rc::strong_count(&b));
+        println!("a rc count after changing a = {}", Rc::strong_count(&a));
+
+        // Uncomment the next line to see that we have a cycle;
+        // it will overflow the stack
+        // println!("a next item = {:?}", a.tail());
+    }
+}
+
+mod tree_weak {
+    use std::rc::{Rc, Weak};
+    use std::cell::RefCell;
+
+    #[derive(Debug)]
+    struct Node {
+        value: i32,
+        children: RefCell<Vec<Rc<Node>>>,
+        parent: RefCell<Weak<Node>>,
+    }
+
+    #[test]
+    fn test() {
+        let leaf = Rc::new(Node {
+            value: 5,
+            parent: RefCell::new(Weak::new()),
+            children: RefCell::new(vec![])
+        });
+
+        println!("leaf parent = {:?}", leaf.parent.borrow().upgrade());
+        println!(
+            "leaf strong = {}, weak = {}",
+            Rc::strong_count(&leaf),
+            Rc::weak_count(&leaf),
+        );
+
+        {
+            let branch = Rc::new(Node {
+                value: 10,
+                parent: RefCell::new(Weak::new()),
+                children: RefCell::new(vec![Rc::clone(&leaf)])
+            });
+
+            *leaf.parent.borrow_mut() = Rc::downgrade(&branch);
+            println!("Pointed leaf to branch");
+            println!(
+                "branch strong = {}, weak = {}",
+                Rc::strong_count(&branch),
+                Rc::weak_count(&branch),
+            );
+
+            println!(
+                "leaf strong = {}, weak = {}",
+                Rc::strong_count(&leaf), // eq 2 because leaf have one strong Rc point to Nil and the other one is from branch point to clone of leaf
+                Rc::weak_count(&leaf),
+            );
+
+            println!("leaf parent = {:?}", leaf.parent.borrow().upgrade());
+
+
+        }
+
+        println!("Out of the scope (a.k.a branch dropped)");
+        println!("leaf parent = {:?}", leaf.parent.borrow().upgrade());
+        println!(
+            "leaf strong = {}, weak = {}",
+            Rc::strong_count(&leaf),
+            Rc::weak_count(&leaf),
+        );
+    }
+}
