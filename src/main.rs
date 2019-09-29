@@ -22,7 +22,8 @@
 //mod lifetime;
 //mod closure;
 //mod iterator;
-mod smart_pointer;
+//mod smart_pointer;
+mod concurrent;
 
 fn main() {
 //    print::run();
@@ -49,5 +50,6 @@ fn main() {
 //    lifetime::run();
 //    closure::run();
 //    iterator::run();
-    smart_pointer::run();
+//    smart_pointer::run();
+    concurrent::run();
 }
