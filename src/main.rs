@@ -24,7 +24,8 @@
 //mod iterator;
 //mod smart_pointer;
 //mod concurrent;
-mod channels;
+//mod channels;
+mod mutexs;
 
 fn main() {
 //    print::run();
@@ -53,5 +54,6 @@ fn main() {
 //    iterator::run();
 //    smart_pointer::run();
 //    concurrent::run();
-    channels::run();
+//    channels::run();
+    mutexs::run();
 }
