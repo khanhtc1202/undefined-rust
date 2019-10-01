@@ -23,7 +23,8 @@
 //mod closure;
 //mod iterator;
 //mod smart_pointer;
-mod concurrent;
+//mod concurrent;
+mod channels;
 
 fn main() {
 //    print::run();
@@ -51,5 +52,6 @@ fn main() {
 //    closure::run();
 //    iterator::run();
 //    smart_pointer::run();
-    concurrent::run();
+//    concurrent::run();
+    channels::run();
 }
