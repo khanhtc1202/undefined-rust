@@ -5,7 +5,8 @@ use std::time::Duration;
 pub fn run() {
     // one_vs_one();
     // one_vs_one_multi();
-    multi_vs_one();
+    // multi_vs_one();
+    one_vs_one_multi_with_rc();
 }
 
 #[allow(dead_code)]
@@ -41,12 +42,6 @@ fn one_vs_one_multi() {
             String::from("thread"),
         ];
 
-//      // how to iter it here to write in functional way
-//        vals.iter().map(|val| {
-//            tx.send(val).unwrap();
-//            thread::sleep(Duration::from_secs(1));
-//        }).collect();
-
         for val in vals {
             tx.send(val).unwrap();
             thread::sleep(Duration::from_secs(1));
@@ -58,6 +53,7 @@ fn one_vs_one_multi() {
     }
 }
 
+#[allow(dead_code)]
 fn multi_vs_one() {
     let (tx, rx) = mpsc::channel();
 
@@ -95,4 +91,26 @@ fn multi_vs_one() {
     for received in rx {
         println!("Got: {}", received);
     }
+}
+
+use std::sync::Arc;
+
+fn one_vs_one_multi_with_rc() {
+    let (tx, rx) = mpsc::channel();
+
+    thread::spawn(move || {
+        let vals = vec![
+            Arc::new(String::from("hello")),
+            Arc::new(String::from("world")),
+        ];
+
+        vals.iter().for_each(|val| {
+            tx.send(val.clone()).unwrap();
+            thread::sleep(Duration::from_secs(1));
+        });
+    });
+
+    rx.iter().for_each(|mess| {
+        println!("Got: {}", mess);
+    });
 }
