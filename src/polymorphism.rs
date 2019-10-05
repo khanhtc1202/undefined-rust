@@ -100,3 +100,10 @@ pub fn run() {
 //
 //    g_screen.run();
 }
+
+/// NOTE: A trait is object safe if all the methods defined in the trait have the following properties:
+///
+/// - The return type isn’t `Self`. (eg. fn clone(&self) -> Self;)
+/// - There are no generic type parameters.
+///
+/// NOTE: We can not use <dyn Trait> in with trait which not a object safe trait (eg. Clone)
