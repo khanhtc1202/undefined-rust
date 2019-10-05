@@ -56,29 +56,7 @@ impl Draw for SelectBox {
 }
 
 pub fn run() {
-//    let screen = Screen {
-//        components: vec![
-//            Box::new(SelectBox {
-//                width: 75,
-//                height: 10,
-//                options: vec![
-//                    String::from("Yes"),
-//                    String::from("Maybe"),
-//                    String::from("No")
-//                ],
-//            }),
-//            Box::new(Button {
-//                width: 50,
-//                height: 10,
-//                label: String::from("OK"),
-//            }),
-//        ],
-//    }; // this one is allowed since both SelectBox and Button is trait Draw object
-//
-//    screen.run();
-
-    // otherwise
-    let g_screen = GScreen {
+    let screen = Screen {
         components: vec![
             Box::new(SelectBox {
                 width: 75,
@@ -89,14 +67,36 @@ pub fn run() {
                     String::from("No")
                 ],
             }),
-//            // adding Button in component list is not allowed since GScreen holds a vec! of type SelectBox (for T)
-//            Box::new(Button {
-//                width: 50,
-//                height: 10,
-//                label: String::from("OK"),
-//            }),
+            Box::new(Button {
+                width: 50,
+                height: 10,
+                label: String::from("OK"),
+            }),
         ],
-    };
+    }; // this one is allowed since both SelectBox and Button is trait Draw object
 
-    g_screen.run();
+    screen.run();
+
+    // otherwise
+//    let g_screen = GScreen {
+//        components: vec![
+//            Box::new(SelectBox {
+//                width: 75,
+//                height: 10,
+//                options: vec![
+//                    String::from("Yes"),
+//                    String::from("Maybe"),
+//                    String::from("No")
+//                ],
+//            }),
+////            // adding Button in component list is not allowed since GScreen holds a vec! of type SelectBox (for T)
+////            Box::new(Button {
+////                width: 50,
+////                height: 10,
+////                label: String::from("OK"),
+////            }),
+//        ],
+//    };
+//
+//    g_screen.run();
 }
