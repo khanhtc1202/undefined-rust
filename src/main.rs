@@ -25,7 +25,8 @@
 //mod smart_pointer;
 //mod concurrent;
 //mod channels;
-mod mutexs;
+//mod mutexs;
+mod polymorphism;
 
 fn main() {
 //    print::run();
@@ -55,5 +56,6 @@ fn main() {
 //    smart_pointer::run();
 //    concurrent::run();
 //    channels::run();
-    mutexs::run();
+//    mutexs::run();
+    polymorphism::run();
 }
