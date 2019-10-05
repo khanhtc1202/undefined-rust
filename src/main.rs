@@ -29,7 +29,8 @@
 //mod polymorphism;
 //mod state_pattern;
 //mod state_pattern_1;
-mod matches;
+//mod matches;
+mod pattern;
 
 fn main() {
 //    print::run();
@@ -63,5 +64,6 @@ fn main() {
 //    polymorphism::run();
 //    state_pattern::run();
 //    state_pattern_1::run();
-    matches::run();
+//    matches::run();
+    pattern::run();
 }
