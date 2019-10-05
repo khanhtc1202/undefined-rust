@@ -26,7 +26,8 @@
 //mod concurrent;
 //mod channels;
 //mod mutexs;
-mod polymorphism;
+//mod polymorphism;
+mod state_pattern;
 
 fn main() {
 //    print::run();
@@ -57,5 +58,6 @@ fn main() {
 //    concurrent::run();
 //    channels::run();
 //    mutexs::run();
-    polymorphism::run();
+//    polymorphism::run();
+    state_pattern::run();
 }
