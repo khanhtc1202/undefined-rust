@@ -30,7 +30,8 @@
 //mod state_pattern;
 //mod state_pattern_1;
 //mod matches;
-mod pattern;
+//mod pattern;
+mod advance_unsafe;
 
 fn main() {
 //    print::run();
@@ -65,5 +66,6 @@ fn main() {
 //    state_pattern::run();
 //    state_pattern_1::run();
 //    matches::run();
-    pattern::run();
+//    pattern::run();
+    advance_unsafe::run();
 }
