@@ -20,13 +20,24 @@ pub fn run() {
     // mutable raw pointer
     let r2 = &mut num as *mut i32;
 
+    // without raw pointer, above code doesn't even compile since it's not allowed to have
+    // one mutable pointer along with immutable pointer at the same time (can cause race condition)
+
+    unsafe {
+        println!("r1 is: {}", *r1); // 5
+        println!("r2 is: {}", *r2); // 5
+        *r2 = 10;
+        println!("r1 is: {}", *r1); // 10
+        println!("r2 is: {}", *r2); // 10
+        // With raw pointers, we can create a mutable pointer and an immutable pointer to the same
+        // location and change data through the mutable pointer, potentially creating a data race. Be careful!
+    }
+
     // an immutable raw pointer point to a location on memory
     let address = 0x012345usize;
     let r = address as *const i32;
 
     unsafe {
-        println!("r1 is: {}", *r1);
-        println!("r2 is: {}", *r2);
-//        println!("Location on memory: {}", *r);
+        println!("r is: {}", *r); // segmentation fault since nothing been stored at that address
     }
 }
