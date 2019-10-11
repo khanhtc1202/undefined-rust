@@ -33,6 +33,10 @@ pub fn run() {
         // location and change data through the mutable pointer, potentially creating a data race. Be careful!
     }
 
+    unsafe {
+        dangerous();
+    }
+
     // an immutable raw pointer point to a location on memory
     let address = 0x012345usize;
     let r = address as *const i32;
@@ -40,4 +44,15 @@ pub fn run() {
     unsafe {
         println!("r is: {}", *r); // segmentation fault since nothing been stored at that address
     }
+}
+
+
+/// Unsafe function
+unsafe fn dangerous() {
+    // scope inside unsafe function is safe block already, no need to add unsafe block here
+
+    let mut num = 5;
+    let r = &num as *const i32;
+
+    println!("<Inside unsafe function> r is: {}", *r);
 }
