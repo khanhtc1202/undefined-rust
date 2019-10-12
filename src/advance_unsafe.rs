@@ -165,3 +165,12 @@ fn test_mut_static_var() {
         assert_eq!(3, COUNTER);
     }
 }
+
+/// Unsafe with trait
+unsafe trait Foo {
+    // methods go here
+}
+
+unsafe impl Foo for i32 {
+    // method implementations go here
+}
