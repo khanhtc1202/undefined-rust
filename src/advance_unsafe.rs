@@ -56,3 +56,39 @@ unsafe fn dangerous() {
 
     println!("<Inside unsafe function> r is: {}", *r);
 }
+
+/// Creating a Safe Abstraction over Unsafe Code
+
+use std::slice;
+
+/// unsafe code be wrapped inside safe Rust func so that caller of this function don't care about
+/// the unsafe implementation!
+
+fn split_at_mut(slice: &mut [i32], mid: usize) -> (&mut [i32], &mut [i32]) {
+    /// The function slice::from_raw_parts_mut is unsafe because it takes a raw pointer and
+    /// must trust that this pointer is valid. The offset method on raw pointers is also unsafe,
+    /// because it must trust that the offset location is also a valid pointer.
+    /// Therefore, we had to put an unsafe block around our calls to slice::from_raw_parts_mut and offset
+    /// so we could call them.
+    let len = slice.len();
+    let ptr = slice.as_mut_ptr();
+
+    assert!(mid <= len);
+
+    unsafe {
+        (slice::from_raw_parts_mut(ptr, mid),
+         slice::from_raw_parts_mut(ptr.offset(mid as isize), len - mid))
+    }
+}
+
+#[test]
+fn test_split_on_mut() {
+    let mut v = vec![1, 2, 3, 4, 5, 6];
+
+    let r = &mut v[..];
+
+    let (a, b) = split_at_mut(r, 3);
+
+    assert_eq!(a, &mut [1, 2, 3]);
+    assert_eq!(b, &mut [4, 5, 6]);
+}
