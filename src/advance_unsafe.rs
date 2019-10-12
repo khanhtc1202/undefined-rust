@@ -128,3 +128,40 @@ fn test_extern() {
 pub extern "C" fn call_from_c() {
     println!("Just called a Rust function from C!");
 }
+
+/// Global static variable
+
+/// Rust does not support global variables. If two threads are accessing
+/// the same mutable global variable, it can cause a data race.
+/// In Rust, global variables are called static variables.
+
+static HELLO_WORLD: &str = "Hello, world!";
+
+#[test]
+fn test_static_global_var() {
+    println!("name is: {}", HELLO_WORLD);
+}
+
+/// NOTE: Constants and immutable static variables might seem similar, but a subtle difference is
+/// that values in a static variable have a fixed address in memory. Using the value will
+/// always access the same data. Constants, on the other hand, are allowed to duplicate their data
+/// whenever they’re used.
+/// Another difference between constants and static variables is that static variables can be `mutable`.
+/// Accessing and modifying mutable static variables is `unsafe`.
+
+static mut COUNTER: u32 = 0;
+
+fn add_to_count(inc: u32) {
+    unsafe {
+        COUNTER += inc;
+    }
+}
+
+#[test]
+fn test_mut_static_var() {
+    add_to_count(3);
+
+    unsafe {
+        assert_eq!(3, COUNTER);
+    }
+}
