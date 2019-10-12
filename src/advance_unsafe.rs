@@ -92,3 +92,39 @@ fn test_split_on_mut() {
     assert_eq!(a, &mut [1, 2, 3]);
     assert_eq!(b, &mut [4, 5, 6]);
 }
+
+/// Call other languages func from Rust
+
+/// To use external code ( from other languages ) use `extern` that facilitates
+/// the creation and use of a Foreign Function Interface (FFI)
+
+/// The "C" part defines which application binary interface (ABI) the external function uses:
+/// the ABI defines how to call the function at the assembly level.
+extern "C" {
+    fn abs(input: i32) -> i32;
+}
+
+#[test]
+fn test_extern() {
+    // need wrap external language call inside an unsafe block since it's applied Rust rule to check valid
+    unsafe {
+        let _3 = abs(-3);
+        assert_eq!(_3, 3);
+    }
+}
+
+/// Call Rust func from other language
+
+/// We can also use extern to create an interface that allows other languages to call Rust functions.
+/// Instead of an extern block, we add the `extern` keyword and specify the ABI to use just before the `fn` keyword.
+/// We also need to add a `#[no_mangle]` annotation to tell the Rust compiler not to mangle
+/// the name of this function. Mangling is when a compiler changes the name we’ve given a function to
+/// a different name that contains more information for other parts of the compilation process to consume
+/// but is less human readable. Every programming language compiler mangles names slightly differently,
+/// so for a Rust function to be nameable by other languages, we must disable the Rust compiler’s name mangling.
+
+/// NOTE: This usage of `extern` does not require `unsafe`.
+#[no_mangle]
+pub extern "C" fn call_from_c() {
+    println!("Just called a Rust function from C!");
+}
