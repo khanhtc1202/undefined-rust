@@ -31,7 +31,8 @@
 //mod state_pattern_1;
 //mod matches;
 //mod pattern;
-mod advance_unsafe;
+//mod advance_unsafe;
+mod advance_trait;
 
 fn main() {
 //    print::run();
@@ -67,5 +68,6 @@ fn main() {
 //    state_pattern_1::run();
 //    matches::run();
 //    pattern::run();
-    advance_unsafe::run();
+//    advance_unsafe::run();
+    advance_trait::run();
 }
