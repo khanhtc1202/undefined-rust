@@ -45,6 +45,11 @@ impl FIterator<String> for Counter {
 /// When we use generic type parameters, we can specify a default concrete type for the generic type.
 /// This eliminates the need for implementors of the trait to specify a concrete type if the default type works.
 ///
+/// Usage:
+/// You’ll use default type parameters in two main ways:
+///  - To extend a type without breaking existing code
+///  - To allow customization in specific cases most users won’t need
+
 /// E.G:
 /// trait Add<RHS=Self> {
 ///   type Output;
@@ -77,4 +82,24 @@ impl Add for Point {
 fn test_new_add() {
     assert_eq!(Point { x: 1, y: 0 } + Point { x: 2, y: 3 },
                Point { x: 3, y: 3 });
+}
+
+/// other example
+
+#[derive(Debug, PartialEq)]
+struct Millimeters(u32);
+#[derive(Debug, PartialEq)]
+struct Meters(u32);
+
+impl Add<Meters> for Millimeters {
+    type Output = Millimeters;
+
+    fn add(self, other: Meters) -> Millimeters {
+        Millimeters(self.0 + (other.0 * 1000))
+    }
+}
+
+#[test]
+fn test_other_add() {
+    assert_eq!(Millimeters(10) + Meters(1), Millimeters(1010));
 }
