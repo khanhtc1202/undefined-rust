@@ -75,3 +75,5 @@ impl HelloMacro for Pancakes {
 fn test_derive_macro() {
     Pancakes::hello_macro();
 }
+
+/// NOTE: https://doc.rust-lang.org/book/ch19-06-macros.html
