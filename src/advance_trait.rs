@@ -103,3 +103,69 @@ impl Add<Meters> for Millimeters {
 fn test_other_add() {
     assert_eq!(Millimeters(10) + Meters(1), Millimeters(1010));
 }
+
+/// Fully Qualified Syntax for Disambiguation: Calling Methods with the Same Name
+
+trait Pilot {
+    fn fly(&self) -> &str;
+}
+
+trait Wizard {
+    fn fly(&self) -> &str;
+}
+
+struct Human;
+
+impl Pilot for Human {
+    fn fly(&self) -> &str{
+        "This is your captain speaking."
+    }
+}
+
+impl Wizard for Human {
+    fn fly(&self) -> &str{
+        "Up!"
+    }
+}
+
+impl Human {
+    fn fly(&self) -> &str {
+        "*waving arms furiously*"
+    }
+}
+
+#[test]
+fn test_flying_man() {
+    let person = Human;
+
+    assert_eq!("*waving arms furiously*", person.fly());
+    // Specifying the trait name before the method name clarifies to Rust which implementation of fly we want to call.
+    assert_eq!("Up!", Wizard::fly(&person));
+    assert_eq!("This is your captain speaking.", Pilot::fly(&person));
+}
+
+/// other example
+
+trait Animal {
+    fn baby_name() -> String;
+}
+
+struct Dog;
+
+impl Dog {
+    fn baby_name() -> String {
+        String::from("Spot")
+    }
+}
+
+impl Animal for Dog {
+    fn baby_name() -> String {
+        String::from("puppy")
+    }
+}
+
+#[test]
+fn test_fully_qualified_syntax() {
+    assert_eq!("Spot", Dog::baby_name());
+    assert_eq!("puppy", <Dog as Animal>::baby_name());
+}
