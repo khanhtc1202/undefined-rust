@@ -208,7 +208,7 @@ impl fmt::Display for XPoint {
 /// doing directly because the `Display` trait and the `Vec<T>` type are defined outside our crate.
 /// We can make a `Wrapper` struct that holds an instance of `Vec<T>`; then we can implement `Display` on `Wrapper` and use the `Vec<T>` value
 
-struct Wrapper(Vec<String>); // kind of alias type to Vec<String>, but diff is that Vec<String> val is the FIRST val of instance on that type
+struct Wrapper(Vec<String>); // kind of tuple type which hold Vec<String> as the FIRST val of instance on that type
 
 impl fmt::Display for Wrapper {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
