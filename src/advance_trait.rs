@@ -1,4 +1,7 @@
-pub fn run() {}
+pub fn run() {
+    let x_point = XPoint{x: 1, y: 3};
+    x_point.outline_print();
+}
 
 /// Specifying Placeholder Types in Trait Definitions with Associated Types
 
@@ -169,3 +172,33 @@ fn test_fully_qualified_syntax() {
     assert_eq!("Spot", Dog::baby_name());
     assert_eq!("puppy", <Dog as Animal>::baby_name());
 }
+
+/// Using Supertraits to Require One Trait’s Functionality Within Another Trait
+
+use std::fmt;
+
+trait OutlinePrint: fmt::Display { // this OutlinePrint is super trait that requires type which impl Display trait
+    fn outline_print(&self) {
+        let output = self.to_string(); // use the Display trait implemented type here (1)
+        let len = output.len();
+        println!("{}", "*".repeat(len + 4));
+        println!("*{}*", " ".repeat(len + 2));
+        println!("* {} *", output); // use the Display trait implemented type here (2)
+        println!("*{}*", " ".repeat(len + 2));
+        println!("{}", "*".repeat(len + 4));
+    }
+}
+
+struct XPoint {
+    x: i32,
+    y: i32,
+}
+
+impl OutlinePrint for XPoint {}
+
+impl fmt::Display for XPoint {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "({}, {})", self.x, self.y)
+    }
+}
+
