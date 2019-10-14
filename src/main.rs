@@ -34,7 +34,8 @@
 //mod advance_unsafe;
 //mod advance_trait;
 //mod advance_type;
-mod advance_func;
+//mod advance_func;
+mod advance_marco;
 
 fn main() {
 //    print::run();
@@ -73,5 +74,6 @@ fn main() {
 //    advance_unsafe::run();
 //    advance_trait::run();
 //    advance_type::run();
-    advance_func::run();
+//    advance_func::run();
+    advance_marco::run();
 }
