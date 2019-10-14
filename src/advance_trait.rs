@@ -202,3 +202,27 @@ impl fmt::Display for XPoint {
     }
 }
 
+/// Using the Newtype Pattern to Implement External Traits on External Types
+
+/// As an example, let’s say we want to implement `Display` on `Vec<T>`, which the orphan rule prevents us from
+/// doing directly because the `Display` trait and the `Vec<T>` type are defined outside our crate.
+/// We can make a `Wrapper` struct that holds an instance of `Vec<T>`; then we can implement `Display` on `Wrapper` and use the `Vec<T>` value
+
+struct Wrapper(Vec<String>); // kind of alias type to Vec<String>, but diff is that Vec<String> val is the FIRST val of instance on that type
+
+impl fmt::Display for Wrapper {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "[{}]", self.0.join(", ")) // self.0 get the first val on instance of Wrapper type (Wrapper is a tuple)
+    }
+}
+
+#[test]
+fn test_wrapper() {
+    let w = Wrapper(vec![String::from("hello"), String::from("world")]);
+    assert_eq!("[hello, world]", format!("{}",w));
+}
+
+/// NOTE: If we wanted the new type to have every method the inner type has, implementing the `Deref` trait
+/// (discussed in Chapter 15 in the “Treating Smart Pointers Like Regular References with the Deref Trait” section)
+/// on the Wrapper to return the inner type would be a solution.
+/// a.k.a implement `Deref` trait to dereference instance of wrap type to main type and you can access to all method of main type directly!
