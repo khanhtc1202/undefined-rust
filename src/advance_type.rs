@@ -55,4 +55,39 @@ fn bar() -> ! {
     // --snip--
 }
 
+/// Dynamically Sized Types and the Sized Trait
 
+/// So although a &T is a single value that stores the memory address of where the T is located,
+/// a &str is two values: the address of the str and its length. As such, we can know the size of
+/// a &str value at compile time: it’s twice the length of a usize.
+///
+/// in Rust: they have an extra bit of metadata that stores the size of the dynamic information.
+///
+/// We can combine str with all kinds of pointers: for example, Box<str> or Rc<str>.
+/// In fact, you’ve seen this before but with a different dynamically sized type: traits.
+/// Every trait is a dynamically sized type we can refer to by using the name of the trait.
+/// We mentioned that to use traits as trait objects, we must put them behind a pointer,
+/// such as &dyn Trait or Box<dyn Trait> (Rc<dyn Trait> would work too).
+///
+/// To work with DSTs, Rust has a particular trait called the Sized trait to determine whether or not a type’s size is known at compile time.
+/// This trait is automatically implemented for everything whose size is known at compile time.
+
+/// so
+fn generic<T>(t: T) {
+    // --snip--
+}
+/// will be treated as
+fn generic_s<T: Sized>(t: T) {
+    // --snip--
+}
+
+/// By default, generic functions will work only on types that have a known size at compile time.
+/// However, you can use the following special syntax to relax this restriction:
+fn generic_ns<T: ?Sized>(t: &T) {
+    // --snip--
+}
+/// A trait bound on ?Sized is the opposite of a trait bound on Sized: we would read this as
+/// “T may or may not be Sized.” This syntax is `only available for Sized, not any other traits`.
+/// Also note that we switched the type of the t parameter from T to &T.
+/// Because the type might not be Sized, we need to use it behind some kind of pointer.
+/// In this case, we’ve chosen a reference.
