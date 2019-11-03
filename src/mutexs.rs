@@ -45,7 +45,7 @@ fn multi_thread_mutex() {
     let mut handles = vec![];
 
     for _ in 0..10 {
-        let counter = Arc::clone(&counter);
+        let counter = counter.clone(); // alternate: Arc::clone(&counter);
         let handle = thread::spawn(move || {
             let mut num = counter.lock().unwrap();
             *num += 1;

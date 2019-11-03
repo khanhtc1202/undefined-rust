@@ -25,7 +25,7 @@
 //mod smart_pointer;
 //mod concurrent;
 //mod channels;
-//mod mutexs;
+mod mutexs;
 //mod polymorphism;
 //mod state_pattern;
 //mod state_pattern_1;
@@ -35,7 +35,7 @@
 //mod advance_trait;
 //mod advance_type;
 //mod advance_func;
-mod advance_marco;
+//mod advance_marco;
 
 fn main() {
 //    print::run();
@@ -65,7 +65,7 @@ fn main() {
 //    smart_pointer::run();
 //    concurrent::run();
 //    channels::run();
-//    mutexs::run();
+    mutexs::run();
 //    polymorphism::run();
 //    state_pattern::run();
 //    state_pattern_1::run();
@@ -75,5 +75,5 @@ fn main() {
 //    advance_trait::run();
 //    advance_type::run();
 //    advance_func::run();
-    advance_marco::run();
+//    advance_marco::run();
 }
